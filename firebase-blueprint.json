@@ -1,0 +1,144 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Stores user roles and permissions",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "Role": {
+      "title": "Role",
+      "description": "Custom user roles and module permissions",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "permissions": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "permissions"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Dynamic inventory category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "subcategories": { "type": "array" },
+        "unitTypes": { "type": "array" },
+        "customFields": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "unitTypes"]
+    },
+    "Item": {
+      "title": "Item",
+      "description": "Inventory item details",
+      "type": "object",
+      "properties": {
+        "categoryId": { "type": "string" },
+        "subcategory": { "type": "string" },
+        "name": { "type": "string" },
+        "unit": { "type": "string" },
+        "cost": { "type": "number" },
+        "supplier": { "type": "string" },
+        "minStock": { "type": "number" },
+        "leadTime": { "type": "number" },
+        "customFields": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["categoryId", "name", "unit", "cost"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Stock In/Out transaction record",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "type": { "type": "string" },
+        "itemId": { "type": "string" },
+        "quantity": { "type": "number" },
+        "rate": { "type": "number" },
+        "total": { "type": "number" },
+        "supplier": { "type": "string" },
+        "vehicleNo": { "type": "string" },
+        "billNo": { "type": "string" },
+        "purpose": { "type": "string" },
+        "batchId": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "type", "itemId", "quantity", "rate", "total", "createdBy"]
+    },
+    "Production": {
+      "title": "Production",
+      "description": "Production log linking input and output goods",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "batchId": { "type": "string" },
+        "finishedGoodsItemId": { "type": "string" },
+        "outputQuantity": { "type": "number" },
+        "totalCost": { "type": "number" },
+        "averageCostPerUnit": { "type": "number" },
+        "inputs": { "type": "array" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["date", "batchId", "finishedGoodsItemId", "outputQuantity", "totalCost", "inputs", "createdBy"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Log of actions performed in the system",
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "entityId": { "type": "string" },
+        "entityType": { "type": "string" }
+      },
+      "required": ["timestamp", "userId", "userEmail", "action", "details"]
+    }
+  },
+  "firestore": {
+    "/userProfiles/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection of user profile data and roles"
+    },
+    "/roles/{roleId}": {
+      "schema": "Role",
+      "description": "Collection of dynamic user roles"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Collection of inventory categories"
+    },
+    "/items/{itemId}": {
+      "schema": "Item",
+      "description": "Collection of item specifications"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Collection of Stock In/Out transactions"
+    },
+    "/productions/{productionId}": {
+      "schema": "Production",
+      "description": "Collection of production runs"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "AuditLog",
+      "description": "Collection of system audit logs"
+    }
+  }
+}

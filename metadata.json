@@ -1,0 +1,6 @@
+{
+  "name": "MIS Inventory System",
+  "description": "Manufacturing Inventory Management System with dynamic categories, custom fields, production formulation, and dynamic role system with NPR currency support and MIS reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
